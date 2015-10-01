@@ -8,7 +8,7 @@ use Smoqadam\Telegram;
 
 $api_token = 'API_TOKEN';
     
-$tg = new Telegram($api);
+$tg = new Telegram($api_token);
    
 $tg->cmd('vid:<<:any>>', function ($video_id) use ($tg){
         
@@ -34,6 +34,11 @@ $tg->cmd('vid:<<:any>>', function ($video_id) use ($tg){
         
         $streams = explode(',',$streams);
         
+        if(!file_exists('videos/')){
+            mkdir('videos');
+            @chmod('videos',0755);    
+        }
+        $msg = '';
         foreach($streams as $stream){
              parse_str($stream,$data); //decode the stream
             if(stripos($data['type'],$format) !== false){ //We've found the right stream with the correct format
@@ -42,17 +47,17 @@ $tg->cmd('vid:<<:any>>', function ($video_id) use ($tg){
                 stream_copy_to_stream($video,$file); //copy it to the file
                 fclose($video);
                 fclose($file);
-                echo 'Download finished! Check the file.<a href="{$url}/videos/"'.$video_id.'.mp4">DOWNLOAD</a>';
+                $msg = "Download finished! Check the file. {$url}/videos/{$video_id}.mp4";
                 break;
             }
         
         }
         
-        $tg->sendMessage("Download finished. {$url}/videos/".$video_id.'.mp4' , $tg->getChatId());
+        $tg->sendMessage($msg , $tg->getChatId());
         
         
         $path = 'videos/';
-        $life_time = 24*3600;
+        $life_time = 24 * 3600;
         if ($handle = opendir($path)) {
         
             while (false !== ($file = readdir($handle))) { 
@@ -60,7 +65,7 @@ $tg->cmd('vid:<<:any>>', function ($video_id) use ($tg){
                 //24 hours in a day * 3600 seconds per hour
                 if((time() - $filelastmodified) > $life_time)
                 {
-                unlink($path . $file);
+                    unlink($path . $file);
                 }
         
             }
