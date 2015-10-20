@@ -76,7 +76,7 @@ class Telegram
 
     /**
      *
-     * @param $token Telegram api token , taken by botfather
+     * @param String $token Telegram api token , taken by botfather
      */
     public function __construct($token)
     {
@@ -88,8 +88,8 @@ class Telegram
 
     /**
      * add new command to the bot
-     * @param $cmd String
-     * @param $func Closure
+     * @param String $cmd
+     * @param \Closure $func
      */
     public function cmd($cmd, $func)
     {
@@ -346,6 +346,8 @@ class Telegram
      */
     public function sendMessage($text, $chat_id, $disable_web_page_preview = false, $reply_to_message_id = null, $reply_markup = null)
     {
+
+        $this->sendChatAction(self::ACTION_TYPING,$chat_id);
         return $this->exec('sendMessage', [
             'chat_id' => $this->getChatId($chat_id),
             'text' => $text,
