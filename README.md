@@ -14,4 +14,4 @@ Example :
 
 ## Notice :
 
-files saved in `videos/` directory will be delete after 24 hours. you can change the time in `checkForOldFiles` in `Youtube.php` class.
+files saved in `videos/` directory will be deleted after 24 hours. you can change the time in `checkForOldFiles` in `Youtube.php` class.
