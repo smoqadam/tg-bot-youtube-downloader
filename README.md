@@ -3,8 +3,8 @@ a telegram bot for download youtube videos.
 
 1.Open `index.php` and set your API_TOKEN
  
-2.Call setWebhook by opening this url : `https://api.telegram.org/API_TOKEN/setWebhook?url=https://yourdomain.com/index.php` 
->>> change API_TOKEN and yourdomain.com in the above link
+2.Call setWebhook by opening this url : `https://api.telegram.org/botAPI_TOKEN/setWebhook?url=https://yourdomain.com/index.php` 
+> change API_TOKEN and yourdomain.com in the above link
  
 3.Send `vid:YOUTUBE_VIDEO_ID` to your bot
 
